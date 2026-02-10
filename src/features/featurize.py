@@ -1,70 +1,98 @@
+"""
+Feature engineering — TF-IDF, metadata encoding, and custom fraud indicators.
+"""
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from pathlib import Path
 
-class TextMetaFeatureExtractor(BaseEstimator, TransformerMixin):
-    """Extracts meta-features from text: word count, char count, etc."""
-    def fit(self, X, y=None):
-        return self
-    
-    def transform(self, X):
-        # Expecting X to be a Series of text
-        if isinstance(X, pd.DataFrame):
-            X = X.iloc[:, 0]
-            
-        features = pd.DataFrame()
-        features['word_count'] = X.apply(lambda x: len(str(x).split()))
-        features['char_count'] = X.apply(len)
-        features['avg_word_len'] = features['char_count'] / (features['word_count'] + 1)
-        features['upper_case_ratio'] = X.apply(lambda x: sum(1 for c in str(x) if c.isupper()) / (len(str(x)) + 1))
-        
-        return features
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-def get_feature_pipeline():
-    """Builds a scikit-learn pipeline for feature extraction."""
-    
-    # Text pipeline
-    text_pipeline = Pipeline([
-        ('tfidf', TfidfVectorizer(max_features=5000, stop_words='english', ngram_range=(1, 2)))
-    ])
-    
-    # Text Meta features
-    meta_text_pipeline = Pipeline([
-        ('meta_text', TextMetaFeatureExtractor())
-    ])
-    
-    # Categorical/Metadata pipeline
-    # categorical_features = ['employment_type', 'required_experience', 'required_education']
-    # numeric_boolean_features = ['telecommuting', 'has_company_logo', 'has_questions']
-    
-    # Since we need to define columns in the ColumnTransformer, we'll return a function/object that takes the dataframe 
-    # and splits it, or we can use ColumnTransformer if we know the column names.
-    
-    # Let's assume the input to the main pipeline is the whole dataframe.
-    # We need a custom transformer to select columns.
-    
-    return text_pipeline # For now, let's just return the text pipeline or a composed one in the training script
-    
-def build_transformer(categorical_cols, numerical_cols, text_col='clean_text'):
+from src.config import (
+    TFIDF_MAX_FEATURES,
+    TFIDF_NGRAM_RANGE,
+    CATEGORICAL_COLS,
+    BOOLEAN_COLS,
+)
+
+
+# ─── Engineered numeric features created during preprocessing ────
+ENGINEERED_NUM_COLS = [
+    "email_count",
+    "url_count",
+    "word_count",
+    "char_count",
+    "upper_ratio",
+    "exclamation_count",
+    "company_profile_len",
+]
+
+
+def build_feature_transformer(
+    text_col: str = "clean_text",
+    cat_cols: list = None,
+    num_cols: list = None,
+):
     """
-    Constructs a ColumnTransformer for all features.
+    Builds a ColumnTransformer that handles:
+      • TF-IDF on clean_text
+      • One-hot encoding on categorical columns
+      • Pass-through for boolean + engineered numeric columns
+
+    Returns:
+        sklearn ColumnTransformer
     """
-    
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ('text_tfidf', TfidfVectorizer(max_features=5000, stop_words='english'), text_col),
-            ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=False), categorical_cols),
-            ('num', SimpleImputer(strategy='constant', fill_value=0), numerical_cols)
-        ],
-        remainder='drop'
+    if cat_cols is None:
+        cat_cols = CATEGORICAL_COLS
+    if num_cols is None:
+        num_cols = BOOLEAN_COLS + ENGINEERED_NUM_COLS
+
+    transformers = [
+        (
+            "tfidf",
+            TfidfVectorizer(
+                max_features=TFIDF_MAX_FEATURES,
+                ngram_range=TFIDF_NGRAM_RANGE,
+                stop_words="english",
+                sublinear_tf=True,
+            ),
+            text_col,
+        ),
+        (
+            "cat",
+            Pipeline(
+                [
+                    ("imputer", SimpleImputer(strategy="constant", fill_value="Unknown")),
+                    ("ohe", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
+                ]
+            ),
+            cat_cols,
+        ),
+        (
+            "num",
+            Pipeline(
+                [
+                    ("imputer", SimpleImputer(strategy="constant", fill_value=0)),
+                ]
+            ),
+            num_cols,
+        ),
+    ]
+
+    # Filter out columns that may not exist in the DataFrame
+    return ColumnTransformer(transformers=transformers, remainder="drop")
+
+
+def build_tfidf_only(text_col: str = "clean_text"):
+    """Returns a simple TF-IDF-only feature extractor (for baseline pipelines)."""
+    return TfidfVectorizer(
+        max_features=TFIDF_MAX_FEATURES,
+        ngram_range=TFIDF_NGRAM_RANGE,
+        stop_words="english",
+        sublinear_tf=True,
     )
-    
-    return preprocessor
-
-if __name__ == "__main__":
-    pass

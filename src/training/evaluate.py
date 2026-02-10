@@ -1,32 +1,11 @@
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix
-import pandas as pd
-import numpy as np
+"""
+Evaluation module — metrics computation and report generation.
+"""
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-def calculate_metrics(y_true, y_pred, model_name="Model"):
-    """
-    Calculates evaluation metrics.
-    """
-    metrics = {
-        "Model": model_name,
-        "Accuracy": accuracy_score(y_true, y_pred),
-        "Precision": precision_score(y_true, y_pred, zero_division=0),
-        "Recall": recall_score(y_true, y_pred, zero_division=0),
-        "F1 Score": f1_score(y_true, y_pred, zero_division=0)
-    }
-    return metrics
+from src.utils.metrics import compute_all_metrics, print_report
 
-def print_evaluation_report(y_true, y_pred, model_name="Model"):
-    """
-    Prints a detailed evaluation report.
-    """
-    print(f"\n--- Evaluation Report for {model_name} ---")
-    metrics = calculate_metrics(y_true, y_pred, model_name)
-    for k, v in metrics.items():
-        if k != "Model":
-            print(f"{k}: {v:.4f}")
-            
-    print("\nClassification Report:")
-    print(classification_report(y_true, y_pred, zero_division=0))
-    
-    print("\nConfusion Matrix:")
-    print(confusion_matrix(y_true, y_pred))
+# Re-export for backward compatibility
+__all__ = ["compute_all_metrics", "print_report"]
