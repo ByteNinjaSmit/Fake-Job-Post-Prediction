@@ -114,7 +114,7 @@ Fake-Job-Post-Prediction/
 ### 1. Clone & Setup Virtual Environment
 
 ```bash
-git clone https://github.com/your-username/Fake-Job-Post-Prediction.git
+git clone https://github.com/ByteNinjaSmit/Fake-Job-Post-Prediction.git
 cd Fake-Job-Post-Prediction
 
 # Create virtual environment
