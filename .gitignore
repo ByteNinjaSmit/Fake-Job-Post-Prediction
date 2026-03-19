@@ -29,7 +29,7 @@ ENV/
 .idea/
 .vscode/
 *.ipynb_checkpoints
-data/
+/data/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/external/.gitkeep
