@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Database, TrendingUp, PieChart, Users, ArrowRight, Table as TableIcon } from 'lucide-react';
+import { Database, TrendingUp, PieChart, Users, ArrowRight, Table as TableIcon, Loader2, AlertCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { 
   BarChart, 
@@ -15,21 +15,78 @@ import {
   PieChart as RePieChart,
   Pie
 } from 'recharts';
+import { useEffect, useState } from 'react';
 
-const data = [
-  { name: 'Admin', count: 4200, fraud: 1200 },
-  { name: 'Tech', count: 5800, fraud: 150 },
-  { name: 'Sales', count: 3100, fraud: 800 },
-  { name: 'Eng', count: 2900, fraud: 40 },
-  { name: 'Service', count: 1880, fraud: 600 },
-];
-
-const pieData = [
-  { name: 'Real Posts', value: 14600, color: '#7c3aed' },
-  { name: 'Fraudulent', value: 1280, color: '#ef4444' },
-];
+interface DatasetInfo {
+  total_jobs: number;
+  real_posts: number;
+  fraudulent_posts: number;
+  departments: { name: string; count: number; fraud: number }[];
+  distribution: { name: string; value: number; color: string }[];
+  locations: { name: string; count: number; fraud: number }[];
+  vocabulary_size: number;
+  fields_per_entry: number;
+  imbalance_ratio: string;
+}
 
 export default function DatasetExplorer() {
+  const [data, setData] = useState<DatasetInfo | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDatasetInfo = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/dataset/info');
+        if (!response.ok) {
+          throw new Error('Failed to fetch dataset information');
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (err: any) {
+        setError(err.message || 'An error occurred while fetching data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDatasetInfo();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+        <Loader2 className="h-12 w-12 text-primary animate-spin" />
+        <p className="text-muted-foreground font-medium animate-pulse">Initializing Corpus Explorer...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+        <AlertCircle className="h-12 w-12 text-destructive" />
+        <p className="text-destructive font-bold text-xl">Connection Error</p>
+        <p className="text-muted-foreground">{error}</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="px-6 py-2 bg-primary text-primary-foreground rounded-xl text-sm font-bold uppercase tracking-widest mt-4"
+        >
+          Retry Connection
+        </button>
+      </div>
+    );
+  }
+
+  if (!data) return null;
+
+  const stats = [
+    { icon: Users, label: 'Data Nodes', value: data.total_jobs.toLocaleString(), trend: '+12%' },
+    { icon: TrendingUp, label: 'Vocabulary', value: (data.vocabulary_size / 1000).toFixed(1) + 'k', trend: 'Stable' },
+    { icon: PieChart, label: 'Imbalance Ratio', value: data.imbalance_ratio, trend: 'Corrected' },
+    { icon: TableIcon, label: 'Fields/Entry', value: data.fields_per_entry.toString(), trend: 'Full' },
+  ];
+
   return (
     <div className="max-w-[1600px] mx-auto space-y-16 pb-20 px-4">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border pb-10">
@@ -63,7 +120,7 @@ export default function DatasetExplorer() {
                <ResponsiveContainer width="100%" height="100%">
                   <RePieChart>
                     <Pie
-                      data={pieData}
+                      data={data.distribution}
                       cx="50%"
                       cy="50%"
                       innerRadius={60}
@@ -71,7 +128,7 @@ export default function DatasetExplorer() {
                       paddingAngle={5}
                       dataKey="value"
                     >
-                      {pieData.map((entry, index) => (
+                      {data.distribution.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
@@ -82,27 +139,27 @@ export default function DatasetExplorer() {
                   </RePieChart>
                </ResponsiveContainer>
                <div className="mt-4 space-y-2">
-                  {pieData.map((d, i) => (
+                  {data.distribution.map((d, i) => (
                     <div key={i} className="flex items-center justify-between">
                        <div className="flex items-center gap-2">
                           <div className="h-2 w-2 rounded-full" style={{ backgroundColor: d.color }} />
                           <span className="text-xs text-muted-foreground">{d.name}</span>
                        </div>
-                       <span className="text-xs font-bold">{d.value}</span>
+                       <span className="text-xs font-bold">{d.value.toLocaleString()}</span>
                     </div>
                   ))}
                </div>
             </CardContent>
          </Card>
 
-         <Card className="lg:col-span-2 glass-card border-none rounded-3xl p-8 bg-foreground/[0.01]">
+         <Card className="glass-card border-none rounded-3xl p-8 bg-foreground/[0.01]">
             <CardHeader className="p-0 mb-8">
                <CardTitle className="text-xl font-bold font-outfit">Department Analysis</CardTitle>
                <CardDescription>Correlation between job sectors and fraud density.</CardDescription>
             </CardHeader>
             <CardContent className="p-0 h-64">
                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={data}>
+                  <BarChart data={data.departments}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                     <XAxis 
                       dataKey="name" 
@@ -125,15 +182,38 @@ export default function DatasetExplorer() {
                </ResponsiveContainer>
             </CardContent>
          </Card>
+
+         <Card className="glass-card border-none rounded-3xl p-8 bg-foreground/[0.01]">
+            <CardHeader className="p-0 mb-8">
+               <CardTitle className="text-xl font-bold font-outfit">Geographic Distribution</CardTitle>
+               <CardDescription>Top threat origin nodes by country code.</CardDescription>
+            </CardHeader>
+            <CardContent className="p-0 h-64">
+               <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={data.locations} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
+                    <XAxis type="number" hide />
+                    <YAxis 
+                      dataKey="name" 
+                      type="category"
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: 'rgba(255,255,255,0.6)', fontSize: 10, fontWeight: 800 }} 
+                    />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                      cursor={{ fill: 'rgba(255,255,255,0.02)' }}
+                    />
+                    <Bar dataKey="count" fill="rgba(6, 182, 212, 0.2)" radius={[0, 4, 4, 0]} />
+                    <Bar dataKey="fraud" fill="#ef4444" radius={[0, 4, 4, 0]} />
+                  </BarChart>
+               </ResponsiveContainer>
+            </CardContent>
+         </Card>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-         {[
-           { icon: Users, label: 'Data Nodes', value: '17,880', trend: '+12%' },
-           { icon: TrendingUp, label: 'Vocabulary', value: '42.4k', trend: 'Stable' },
-           { icon: PieChart, label: 'Imbalance Ratio', value: '1:11', trend: 'Corrected' },
-           { icon: TableIcon, label: 'Fields/Entry', value: '14', trend: 'Full' },
-         ].map((stat, i) => (
+         {stats.map((stat, i) => (
            <Card key={i} className="glass-card border-none p-6 rounded-2xl bg-foreground/[0.01] hover:bg-foreground/[0.03] transition-all group">
               <div className="p-2 bg-foreground/5 rounded-xl text-primary w-fit mb-4 group-hover:scale-110 transition-transform">
                  <stat.icon className="h-4 w-4" />

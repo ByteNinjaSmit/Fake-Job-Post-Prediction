@@ -12,7 +12,8 @@ import {
   ShieldAlert,
   ChevronRight,
   LayoutGrid,
-  FileText
+  FileText,
+  Zap
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
@@ -20,6 +21,8 @@ import { ThemeToggle } from './ThemeToggle';
 const navigation = [
   { name: 'Intelligence Console', href: '/console', icon: Terminal },
   { name: 'Real-time Scan', href: '/scan', icon: Scan },
+  { name: 'Batch Analysis', href: '/batch', icon: LayoutGrid },
+  { name: 'Deep Explain', href: '/explain', icon: Zap },
   { name: 'Model Lab', href: '/lab', icon: FlaskConical },
   { name: 'System Monitor', href: '/monitor', icon: Activity },
   { name: 'Dataset Explorer', href: '/dataset', icon: Database },

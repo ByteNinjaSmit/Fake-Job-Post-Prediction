@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Scan, Sparkles, Activity, ShieldAlert, ShieldCheck } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import api from '@/lib/api';
 
 export default function ScanPage() {
   const [text, setText] = useState('');
@@ -20,11 +21,23 @@ export default function ScanPage() {
 
     const scan = async () => {
       setIsScanning(true);
-      await new Promise(r => setTimeout(r, 800));
-      const isFake = Math.random() > 0.8;
-      setScanResult(isFake ? 'Fake' : 'Real');
-      setConfidence(80 + Math.random() * 19);
-      setIsScanning(false);
+      try {
+        const response = await api.post('/predict', {
+          title: text.substring(0, 50),
+          description: text,
+          company_profile: "",
+          requirements: "",
+          benefits: ""
+        });
+
+        const result = response.data;
+        setScanResult(result.prediction === 'Fraudulent' ? 'Fake' : 'Real');
+        setConfidence(result.confidence * 100);
+      } catch (error) {
+        console.error('Scan failed:', error);
+      } finally {
+        setIsScanning(false);
+      }
     };
 
     const timer = setTimeout(scan, 500);

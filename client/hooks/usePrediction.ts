@@ -1,6 +1,7 @@
 'use client';
 
 import { useStore } from '@/lib/store/useStore';
+import api from '@/lib/api';
 
 export function usePrediction() {
   const { startAnalysis, completeAnalysis, addLog, inputText } = useStore();
@@ -25,23 +26,16 @@ export function usePrediction() {
     }
 
     try {
-      // Actual API Call to Flask Backend
-      const response = await fetch('http://localhost:5000/predict', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: inputText.substring(0, 50), // Approximation
-          description: inputText,
-          company_profile: "",
-          requirements: "",
-          benefits: ""
-        })
+      // Actual API Call to FastAPI Backend using Axios
+      const response = await api.post('/predict', {
+        title: inputText.substring(0, 50), // Approximation
+        description: inputText,
+        company_profile: "",
+        requirements: "",
+        benefits: ""
       });
 
-      if (!response.ok) throw new Error('Backend offline');
-      
-      const result = await response.json();
-      completeAnalysis(result);
+      completeAnalysis(response.data);
       
     } catch (err) {
       // Fallback if backend is offline - simulated result

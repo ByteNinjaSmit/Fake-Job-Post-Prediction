@@ -44,12 +44,19 @@ class BatchResponse(BaseModel):
     total: int
 
 
+class FeatureWeight(BaseModel):
+    """Schema for a single feature's contribution score."""
+    word: str
+    weight: float
+
+
 class ExplainResponse(BaseModel):
     """Output schema for explainability endpoints."""
 
     prediction: str
     confidence: float
-    top_features: List[dict]
+    fraudulent_score: float
+    top_features: List[FeatureWeight]
 
 
 class HealthResponse(BaseModel):
@@ -58,3 +65,30 @@ class HealthResponse(BaseModel):
     status: str
     model_loaded: bool
     model_name: str
+
+
+class DepartmentStat(BaseModel):
+    """Stat for a single department."""
+    name: str
+    count: int
+    fraud: int
+
+
+class DistributionStat(BaseModel):
+    """Stat for class distribution."""
+    name: str
+    value: int
+    color: str
+
+
+class DatasetInfoResponse(BaseModel):
+    """Response for dataset information."""
+    total_jobs: int
+    real_posts: int
+    fraudulent_posts: int
+    departments: List[DepartmentStat]
+    distribution: List[DistributionStat]
+    locations: List[DepartmentStat] # Reusing DepartmentStat for name/count/fraud
+    vocabulary_size: int
+    fields_per_entry: int
+    imbalance_ratio: str

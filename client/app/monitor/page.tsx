@@ -46,71 +46,19 @@ export default function MonitorPage() {
         </div>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-         {hardware.map((item, i) => (
-           <Card key={i} className="glass-card border-none rounded-3xl p-6 bg-foreground/[0.01] hover:bg-foreground/[0.03] transition-all group">
-              <div className="flex items-center justify-between mb-6">
-                 <div className="p-2 bg-foreground/5 rounded-xl text-primary group-hover:scale-110 transition-transform">
-                    <Activity className="h-4 w-4" />
-                 </div>
-                 <Badge className="bg-foreground/10 text-white border-none font-bold px-2 py-0.5 rounded-lg text-[9px] uppercase tracking-tighter">
-                   {item.status}
-                 </Badge>
-              </div>
-              <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest mb-1">{item.label}</p>
-              <h4 className="text-2xl font-black font-outfit mb-4">{item.value}</h4>
-              <Progress value={item.usage} className={`h-1 bg-foreground/5 [&>div]:bg-${item.color}`} />
-           </Card>
-         ))}
-      </div>
-
-      <div className="grid gap-8 lg:grid-cols-3">
-         <Card className="lg:col-span-2 glass-card border-none rounded-3xl bg-foreground/[0.01] overflow-hidden">
-            <CardHeader className="p-8 border-b border-border flex flex-row items-center justify-between bg-foreground/[0.02]">
-               <CardTitle className="text-xl font-bold font-outfit">Live Telemetry</CardTitle>
-               <div className="flex gap-2">
-                  <Badge variant="outline" className="border-border text-xs py-1">Requests: 142/min</Badge>
-                  <Badge variant="outline" className="border-border text-xs py-1">Avg Latency: 84ms</Badge>
+      <div className="grid gap-8">
+         <Card className="glass-card border-none rounded-3xl bg-foreground/[0.01] overflow-hidden min-h-[800px] relative">
+            <div className="absolute inset-0 flex items-center justify-center -z-10">
+               <div className="flex flex-col items-center gap-4 text-muted-foreground">
+                  <Activity className="h-12 w-12 animate-pulse" />
+                  <p className="font-outfit font-bold">Connecting to Grafana Engine...</p>
                </div>
-            </CardHeader>
-            <CardContent className="p-0">
-               <div className="h-80 w-full p-8 flex items-end gap-2">
-                  {[...Array(40)].map((_, i) => (
-                    <motion.div 
-                       key={i} 
-                       initial={{ height: 0 }}
-                       animate={{ height: `${20 + Math.random() * 80}%` }}
-                       transition={{ repeat: Infinity, duration: 2, repeatType: 'reverse', delay: i * 0.05 }}
-                       className="flex-1 bg-primary/20 rounded-t-sm" 
-                    />
-                  ))}
-               </div>
-            </CardContent>
-         </Card>
-
-         <Card className="glass-card border-none rounded-3xl bg-foreground/[0.01] flex flex-col">
-            <CardHeader className="p-8 border-b border-border">
-                <div className="flex items-center gap-3">
-                  <Server className="h-5 w-5 text-primary" />
-                  <CardTitle className="text-xl font-bold font-outfit">Cluster Logs</CardTitle>
-                </div>
-            </CardHeader>
-            <CardContent className="flex-1 p-8 space-y-6 overflow-y-auto font-mono text-[10px] scrollbar-hide">
-               {logs.map((log, i) => (
-                 <div key={i} className="flex gap-4 border-l border-border pl-4 relative group">
-                    <div className="absolute -left-0.5 top-0 h-2 w-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span className="text-muted-foreground tabular-nums">{log.time}</span>
-                    <span className="flex-1 text-foreground/80">{log.event}</span>
-                    <span className={`font-black ${log.status === 'OK' ? 'text-green-500' : log.status === 'WARN' ? 'text-amber-500' : 'text-primary'}`}>
-                      {log.status}
-                    </span>
-                 </div>
-               ))}
-               <div className="flex items-center gap-2 pt-4 opacity-30">
-                  <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                  <span className="italic">Monitoring live streams...</span>
-               </div>
-            </CardContent>
+            </div>
+            <iframe 
+              src="http://localhost:3001/d/system-telemetry/system-telemetry?orgId=1&refresh=5s&kiosk" 
+              className="w-full h-[800px] border-none"
+              title="Grafana Dashboard"
+            />
          </Card>
       </div>
 
