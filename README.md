@@ -1,7 +1,8 @@
 # 🔍 Fake Job Post Prediction
 
 > **Industry-ready ML system** for detecting fraudulent job postings using classical ML and Transformer models.  
-> Built with Python, scikit-learn, XGBoost, LightGBM, BERT (Transformers), and FastAPI.
+> Features a **premium Next.js Dashboard** for interactive analysis and real-time monitoring.
+> Built with Python, scikit-learn, XGBoost, LightGBM, BERT (Transformers), FastAPI, and Next.js.
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -35,6 +36,11 @@ Evaluation was performed on a held-out **15% stratified test set**.
 
 ```
 Fake-Job-Post-Prediction/
+│
+├── client/                                # Next.js Frontend Dashboard
+│   ├── app/                               # App router pages (Console, Dataset, etc.)
+│   ├── components/                        # Premium UI components
+│   └── public/                            # Static assets
 │
 ├── data/
 │   ├── raw/
@@ -169,6 +175,26 @@ uvicorn src.api.app:app --reload
 ```
 
 Then visit: [http://localhost:8000/docs](http://localhost:8000/docs) for interactive Swagger documentation.
+
+---
+
+## 🖥️ Frontend Dashboard (Next.js)
+
+The project includes a premium, high-performance dashboard built with Next.js, Framer Motion, and Lucide React.
+
+### Key Features:
+- **Interactive Console**: Real-time prediction gateway with high-fidelity UI.
+- **Batch Scan**: Process bulk job data and visualize aggregate threat patterns.
+- **Deep Explain**: Transparent AI with LIME-powered feature weight visualization.
+- **Corpus Explorer**: Live dataset analytics, department density, and geographic threat nodes.
+
+### Running the Frontend:
+```bash
+cd client
+npm install
+npm run dev
+```
+Then visit: [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -405,12 +431,14 @@ curl http://localhost:8000/health
 
 ## 🗂 Deliverables
 
-- ✅ Clean, documented codebase (20+ source files)
+- ✅ Clean, documented codebase (30+ source files)
 - ✅ Reproducible training scripts with CLI arguments
 - ✅ 6 trained models with comparison table
-- ✅ Production-ready FastAPI with 4 endpoints
-- ✅ SHAP & LIME explainability
-- ✅ Dockerized deployment
+- ✅ Production-ready FastAPI with 5 endpoints
+- ✅ Premium Next.js Frontend Dashboard
+- ✅ Batch Scan & Deep Explain (LIME) visualizations
+- ✅ Live Corpus Explorer with geographic threat mapping
+- ✅ Dockerized deployment (API + Monitoring)
 - ✅ Comprehensive README with results
 
 ---
