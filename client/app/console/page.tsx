@@ -17,41 +17,41 @@ export default function ConsolePage() {
 
   return (
     <div className="max-w-[1600px] mx-auto space-y-12 pb-20 px-4">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/5 pb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border pb-10">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="p-2 bg-primary/10 rounded-lg">
                 <Terminal className="h-5 w-5 text-primary" />
              </div>
-             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">System Path: /root/intelligence/console</span>
+             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">System Path: /root/intelligence/console</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-black font-outfit text-white leading-tight">
+          <h1 className="text-5xl md:text-6xl font-black font-outfit text-foreground leading-tight">
              Neural <span className="text-gradient italic">Intelligence</span> Console
           </h1>
-          <p className="text-zinc-400 text-lg font-medium max-w-2xl leading-relaxed">
+          <p className="text-muted-foreground text-lg font-medium max-w-2xl leading-relaxed">
             Orchestrate multi-layered linguistic analysis and simulate neural decision paths.
           </p>
         </div>
 
         <div className="hidden lg:flex items-center gap-10 px-8 py-5 glass-panel rounded-[2rem]">
            <div className="space-y-1">
-              <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Vector Load</p>
+              <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">Vector Load</p>
               <div className="flex items-center gap-4">
-                 <div className="h-2 w-48 bg-white/5 rounded-full overflow-hidden">
+                 <div className="h-2 w-48 bg-foreground/5 rounded-full overflow-hidden">
                     <motion.div 
                       animate={{ width: isAnalyzing ? '92%' : '14%' }}
                       className="h-full premium-gradient shadow-[0_0_10px_rgba(124,58,237,0.5)]" 
                     />
                  </div>
-                 <span className="text-xs font-black tabular-nums text-white">{isAnalyzing ? '92%' : '14%'}</span>
+                 <span className="text-xs font-black tabular-nums text-foreground">{isAnalyzing ? '92%' : '14%'}</span>
               </div>
            </div>
-           <div className="h-10 w-px bg-white/10" />
+           <div className="h-10 w-px bg-border" />
            <div className="space-y-1">
-              <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Neural Sync</p>
+              <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">Neural Sync</p>
               <div className="flex items-center gap-2">
                  <div className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e] animate-pulse" />
-                 <span className="text-xs font-black uppercase tracking-tighter text-zinc-200">Synchronized</span>
+                 <span className="text-xs font-black uppercase tracking-tighter text-foreground/80">Synchronized</span>
               </div>
            </div>
         </div>
@@ -101,10 +101,10 @@ export default function ConsolePage() {
                              </div>
                              <Progress 
                                 value={prediction.confidence * 100} 
-                                className={`h-2 rounded-full bg-white/5 ${prediction.prediction === 'Fraudulent' ? '[&>div]:bg-destructive' : '[&>div]:bg-green-500'}`} 
+                                className={`h-2 rounded-full bg-foreground/5 ${prediction.prediction === 'Fraudulent' ? '[&>div]:bg-destructive' : '[&>div]:bg-green-500'}`} 
                              />
                           </div>
-                          <div className="text-center px-4 py-2 bg-white/5 rounded-2xl border border-white/5">
+                          <div className="text-center px-4 py-2 bg-foreground/5 rounded-2xl border border-border">
                              <p className="text-[10px] font-black text-muted-foreground uppercase">Stability</p>
                              <p className="text-lg font-black text-primary">0.99</p>
                           </div>
@@ -122,22 +122,22 @@ export default function ConsolePage() {
                <RiskSignals />
             </div>
             
-            <Card className="glass-card border-none rounded-3xl p-6 bg-white/[0.01]">
+            <Card className="glass-card border-none rounded-3xl p-6 bg-foreground/[0.01]">
                <div className="flex items-center justify-between mb-4">
                   <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Vector Load</h4>
                   <Zap className="h-3 w-3 text-primary animate-pulse" />
                </div>
                <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                     <span className="text-[11px] font-medium text-foreground/60">Linguistic Shift</span>
-                     <span className="text-[11px] font-black tabular-nums">+0.04</span>
+                     <span className="text-[11px] font-medium text-muted-foreground">Linguistic Shift</span>
+                     <span className="text-[11px] font-black tabular-nums text-foreground">+0.04</span>
                   </div>
                   <div className="flex items-center justify-between">
-                     <span className="text-[11px] font-medium text-foreground/60">Context Weights</span>
-                     <span className="text-[11px] font-black tabular-nums">0.812</span>
+                     <span className="text-[11px] font-medium text-muted-foreground">Context Weights</span>
+                     <span className="text-[11px] font-black tabular-nums text-foreground">0.812</span>
                   </div>
                   <div className="pt-2">
-                     <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                     <div className="h-1 w-full bg-foreground/5 rounded-full overflow-hidden">
                         <motion.div 
                           initial={{ width: 0 }}
                           animate={{ width: '65%' }}

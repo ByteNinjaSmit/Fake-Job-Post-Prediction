@@ -43,7 +43,7 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
               </div>
             </div>
             <Badge className={`${isFake ? 'bg-destructive text-destructive-foreground' : 'bg-green-500 text-white'} text-xl px-6 py-2 rounded-2xl shadow-xl font-bold border-none`}>
-              {isFake ? "FAKE" : "REAL"}
+               {isFake ? "FAKE" : "REAL"}
             </Badge>
           </div>
         </CardHeader>
@@ -56,11 +56,11 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
             </div>
             <Progress 
               value={confidencePercent} 
-              className={`h-3 rounded-full bg-white/5 ${isFake ? '[&>div]:bg-destructive' : '[&>div]:bg-green-500'}`} 
+              className={`h-3 rounded-full bg-foreground/5 ${isFake ? '[&>div]:bg-destructive' : '[&>div]:bg-green-500'}`} 
             />
           </div>
 
-          <div className="rounded-2xl bg-white/5 p-6 border border-white/5 space-y-4">
+          <div className="rounded-2xl bg-foreground/5 p-6 border border-border space-y-4">
             <h4 className="font-bold font-outfit text-lg flex items-center gap-2">
               {isFake ? <AlertTriangle className="h-5 w-5 text-destructive" /> : <CheckCircle2 className="h-5 w-5 text-green-500" />}
               Linguistic Evidence
@@ -78,7 +78,7 @@ export default function ResultDisplay({ result }: ResultDisplayProps) {
                  Pulse Analysis <Zap className="ml-2 h-4 w-4 fill-primary text-primary" />
               </Link>
             </Button>
-            <Button className="flex-1 h-12 rounded-2xl premium-gradient font-bold text-base shadow-lg shadow-primary/20 transition-transform active:scale-95" onClick={() => window.location.reload()}>
+            <Button className="flex-1 h-12 rounded-2xl premium-gradient font-bold text-base shadow-lg shadow-primary/20 transition-transform active:scale-95 text-white" onClick={() => window.location.reload()}>
               Reset Engine
             </Button>
           </div>

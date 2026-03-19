@@ -66,14 +66,14 @@ export default function ExplainPage() {
       <div className="grid gap-8 lg:grid-cols-3 items-start">
         <Card className="lg:col-span-2 glass-card border-none shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
-          <CardHeader className="p-10 border-b border-white/5 relative z-10">
+          <CardHeader className="p-10 border-b border-border relative z-10">
             <CardTitle className="text-2xl font-bold font-outfit">Linguistic Importance Mapping</CardTitle>
             <CardDescription className="text-base mt-2">
               The model identifies specific tokens that shift the prediction probability.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-10 relative z-10">
-            <div className="p-10 rounded-3xl bg-white/5 border border-white/10 text-2xl leading-[1.8] font-outfit tracking-tight">
+            <div className="p-10 rounded-3xl bg-foreground/5 border border-border text-2xl leading-[1.8] font-outfit tracking-tight">
               {sampleText.map((item, idx) => {
                 const isPositive = item.weight > 0.4;
                 const isVeryPositive = item.weight > 0.7;
@@ -133,7 +133,7 @@ export default function ExplainPage() {
               <p className="text-[10px] text-muted-foreground font-bold tracking-tight">Anomalous patterns linked to known fraud vectors.</p>
             </div>
 
-            <div className="space-y-3 pt-4 border-t border-white/5">
+            <div className="space-y-3 pt-4 border-t border-border">
               <div className="flex items-center justify-between">
                 <span className="flex items-center gap-2 text-sm font-bold"><CheckCircle2 className="h-4 w-4 text-green-500" /> Real Impact</span>
                 <Badge className="bg-green-500 text-white border-none text-[10px] font-black px-3 rounded-full">SECURE</Badge>
@@ -149,7 +149,7 @@ export default function ExplainPage() {
               <p className="text-[10px] text-muted-foreground font-bold tracking-tight">Standard linguistic markers from verified organizations.</p>
             </div>
 
-            <div className="pt-8 mt-8 border-t border-white/5 space-y-4">
+            <div className="pt-8 mt-8 border-t border-border space-y-4">
                <h4 className="text-xs font-black uppercase tracking-widest text-foreground/50">Core Engine</h4>
                <p className="text-xs text-muted-foreground leading-relaxed font-medium italic">
                   "LIME creates a locally faithful explanation by perturbing inputs and observing black-box outputs."
@@ -175,7 +175,7 @@ export default function ExplainPage() {
              className="glass-card p-6 rounded-3xl flex flex-col items-center justify-center text-center space-y-3 group"
            >
               <span className="font-outfit text-xl font-bold group-hover:text-primary transition-colors">{feat.word}</span>
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-foreground/5 border border-border">
                  <span className={`text-[10px] font-black ${feat.type === 'Fake' ? 'text-destructive' : 'text-green-500'}`}>{feat.impact}</span>
                  <div className={`h-1.5 w-1.5 rounded-full ${feat.type === 'Fake' ? 'bg-destructive' : 'bg-green-500'}`} />
               </div>

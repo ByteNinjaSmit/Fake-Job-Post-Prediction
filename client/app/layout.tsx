@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/Sidebar";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={cn(
         "h-full", 
         "antialiased", 
@@ -39,12 +41,13 @@ export default function RootLayout({
         geistMono.variable
       )}
     >
-      <body className="h-full bg-background text-foreground font-sans selection:bg-primary/20 selection:text-primary overflow-hidden">
-        <div className="flex h-full relative">
-          {/* Animated Background Mesh */}
-          <div className="absolute inset-0 -z-10 pointer-events-none">
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px] animate-pulse" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse [animation-delay:2s]" />
+      <body className="h-full bg-background text-foreground font-sans selection:bg-primary/20 selection:text-primary overflow-hidden transition-colors duration-500">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="flex h-full relative">
+          {/* Animated Background Mesh - Adaptive */}
+          <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 dark:bg-primary/10 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-[120px] animate-pulse [animation-delay:2s]" />
           </div>
 
           <Sidebar />
@@ -55,6 +58,7 @@ export default function RootLayout({
             </div>
           </main>
         </div>
+        </ThemeProvider>
       </body>
     </html>
   );

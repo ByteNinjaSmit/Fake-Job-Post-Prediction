@@ -37,17 +37,17 @@ export default function AboutPage() {
                 meticulously labeled by cybersecurity experts.
              </p>
              <div className="mt-6 flex flex-wrap gap-2">
-                <Badge variant="outline" className="border-white/10 px-3">17.8k nodes</Badge>
-                <Badge variant="outline" className="border-white/10 px-3">Fraud: 32%</Badge>
+                <Badge variant="outline" className="border-border px-3">17.8k nodes</Badge>
+                <Badge variant="outline" className="border-border px-3">Fraud: 32%</Badge>
              </div>
           </Card>
 
           <Card className="premium-gradient border-none shadow-2xl p-8 relative overflow-hidden group">
-             <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+             <div className="absolute top-0 right-0 w-32 h-32 bg-foreground/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
              <div className="relative z-10 text-white flex flex-col h-full">
-                <Star className="h-10 w-10 text-white/50 mb-6" />
+                <Star className="h-10 w-10 text-foreground/50 mb-6" />
                 <h3 className="text-2xl font-bold font-outfit mb-4">Community Driven</h3>
-                <p className="text-white/80 leading-relaxed font-medium mb-8">
+                <p className="text-foreground/80 leading-relaxed font-medium mb-8">
                    Contribute to the security engine or deploy your own local sidecar. Star us on GitHub.
                 </p>
                 <div className="mt-auto">

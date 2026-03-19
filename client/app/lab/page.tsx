@@ -20,30 +20,30 @@ export default function LabPage() {
 
   return (
     <div className="max-w-[1400px] mx-auto space-y-16 pb-20 px-4">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/5 pb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border pb-10">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="p-2 bg-primary/10 rounded-lg">
                 <FlaskConical className="h-5 w-5 text-primary" />
              </div>
-             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">System Path: /root/intelligence/lab</span>
+             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">System Path: /root/intelligence/lab</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-black font-outfit text-white leading-tight">
+          <h1 className="text-5xl md:text-6xl font-black font-outfit text-foreground leading-tight">
              Model <span className="text-gradient italic">Laboratory</span>
           </h1>
-          <p className="text-zinc-400 text-lg font-medium max-w-2xl leading-relaxed">
+          <p className="text-muted-foreground text-lg font-medium max-w-2xl leading-relaxed">
              Expose internal neural parameters and visualize classification boundary shifts with real-time feedback loops.
           </p>
         </div>
-        <div className="flex items-center gap-4 px-6 py-3 glass-panel rounded-2xl border-white/10">
+        <div className="flex items-center gap-4 px-6 py-3 glass-panel rounded-2xl border-border">
             <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300">Kernel-01 Active</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Kernel-01 Active</span>
         </div>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-12">
          {/* Threshold Control */}
-         <Card className="lg:col-span-4 glass-card border-none rounded-3xl p-8 bg-white/[0.01]">
+         <Card className="lg:col-span-4 glass-card border-none rounded-3xl p-8 bg-foreground/[0.01]">
             <CardHeader className="p-0 mb-8">
                <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-primary/10 rounded-lg text-primary">
@@ -64,16 +64,16 @@ export default function LabPage() {
                     onValueChange={([val]) => setThreshold(val)} 
                     max={1} 
                     step={0.01} 
-                    className="[&>span:first-child]:h-2 [&>span:first-child]:bg-white/5 [&_[role=slider]]:h-6 [&_[role=slider]]:w-6 [&_[role=slider]]:bg-primary [&_[role=slider]]:border-none"
+                    className="[&>span:first-child]:h-2 [&>span:first-child]:bg-foreground/5 [&_[role=slider]]:h-6 [&_[role=slider]]:w-6 [&_[role=slider]]:bg-primary [&_[role=slider]]:border-none"
                   />
                </div>
 
                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <div className="p-4 rounded-2xl bg-foreground/5 border border-border">
                      <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">True Positive</p>
                      <p className="text-xl font-black font-outfit text-green-500">{(metrics.TPR * 100).toFixed(1)}%</p>
                   </div>
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <div className="p-4 rounded-2xl bg-foreground/5 border border-border">
                      <p className="text-[10px] font-black text-muted-foreground uppercase mb-1">False Positive</p>
                      <p className="text-xl font-black font-outfit text-destructive">{(metrics.FPR * 100).toFixed(1)}%</p>
                   </div>
@@ -87,7 +87,7 @@ export default function LabPage() {
 
          {/* Visualizations */}
          <div className="lg:col-span-8 grid gap-8 h-fit">
-            <Card className="glass-card border-none rounded-3xl p-8 bg-white/[0.01]">
+            <Card className="glass-card border-none rounded-3xl p-8 bg-foreground/[0.01]">
                <CardHeader className="p-0 mb-8 flex flex-row items-center justify-between">
                   <div>
                     <CardTitle className="text-xl font-bold font-outfit">Classification Matrix</CardTitle>
@@ -98,20 +98,20 @@ export default function LabPage() {
                   </Badge>
                </CardHeader>
                <CardContent className="p-0">
-                  <div className="grid grid-cols-2 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
-                     <div className="bg-[#0a0a0a] p-12 flex flex-col items-center justify-center text-center">
+                  <div className="grid grid-cols-2 gap-px bg-foreground/5 rounded-2xl overflow-hidden border border-border">
+                     <div className="bg-card p-12 flex flex-col items-center justify-center text-center">
                         <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-4">True Neg</span>
-                        <div className="text-4xl font-black font-outfit text-white/40">12,402</div>
+                        <div className="text-4xl font-black font-outfit text-foreground/40">12,402</div>
                      </div>
-                     <div className="bg-[#0a0a0a] p-12 flex flex-col items-center justify-center text-center">
+                     <div className="bg-card p-12 flex flex-col items-center justify-center text-center">
                         <span className="text-[10px] font-black text-destructive uppercase tracking-widest mb-4 font-bold">False pos</span>
                         <div className="text-4xl font-black font-outfit text-destructive/40">342</div>
                      </div>
-                     <div className="bg-[#0a0a0a] p-12 flex flex-col items-center justify-center text-center">
+                     <div className="bg-card p-12 flex flex-col items-center justify-center text-center">
                         <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-4 font-bold">False neg</span>
                         <div className="text-4xl font-black font-outfit text-amber-500/40">128</div>
                      </div>
-                     <div className="bg-[#0a0a0a] p-12 flex flex-col items-center justify-center text-center">
+                     <div className="bg-card p-12 flex flex-col items-center justify-center text-center">
                         <span className="text-[10px] font-black text-green-500 uppercase tracking-widest mb-4 font-bold">True Pos</span>
                         <div className="text-4xl font-black font-outfit text-green-500/80">3,204</div>
                      </div>

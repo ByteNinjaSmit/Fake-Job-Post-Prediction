@@ -41,10 +41,10 @@ export default function ScanPage() {
          >
             <Scan className="h-10 w-10 text-primary" />
          </motion.div>
-         <h1 className="text-6xl font-black font-outfit text-white uppercase italic">Real-time <span className="text-gradient">Neural Scan</span></h1>
-         <p className="text-zinc-400 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-            Experience sub-second fraudulent pattern detection as you type with <br /> our proprietary entropy-based fingerprinting.
-         </p>
+          <h1 className="text-6xl font-black font-outfit text-foreground uppercase italic leading-tight">Real-time <span className="text-gradient">Neural Scan</span></h1>
+          <p className="text-muted-foreground text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+             Experience sub-second fraudulent pattern detection as you type with <br /> our proprietary entropy-based fingerprinting.
+          </p>
       </div>
 
       <div className="relative">
@@ -55,24 +55,24 @@ export default function ScanPage() {
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Initiate text stream for real-time analysis..."
-                  className="w-full h-64 bg-transparent border-none focus:ring-0 text-2xl font-medium leading-relaxed resize-none scrollbar-hide placeholder:text-white/10"
+                  className="w-full h-64 bg-transparent border-none focus:ring-0 text-2xl font-medium leading-relaxed resize-none scrollbar-hide placeholder:text-foreground/10 text-foreground"
                />
 
-               <div className="flex items-center justify-between pt-8 border-t border-white/5">
-                  <div className="flex items-center gap-6">
-                     <div className="space-y-1">
-                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Neural Pulse</p>
-                        <div className="flex items-center gap-2">
-                           <Activity className={`h-4 w-4 ${isScanning ? 'text-primary animate-pulse' : 'text-muted-foreground'}`} />
-                           <span className="text-sm font-bold tabular-nums">12ms</span>
-                        </div>
-                     </div>
-                     <div className="h-10 w-px bg-white/5" />
-                     <div className="space-y-1">
-                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Confidence</p>
-                        <span className="text-sm font-bold tabular-nums">{Math.round(confidence)}%</span>
-                     </div>
-                  </div>
+                <div className="flex items-center justify-between pt-8 border-t border-border">
+                   <div className="flex items-center gap-6">
+                      <div className="space-y-1">
+                         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Neural Pulse</p>
+                         <div className="flex items-center gap-2">
+                            <Activity className={`h-4 w-4 ${isScanning ? 'text-primary animate-pulse' : 'text-muted-foreground'}`} />
+                            <span className="text-sm font-bold tabular-nums text-foreground">12ms</span>
+                         </div>
+                      </div>
+                      <div className="h-10 w-px bg-border" />
+                      <div className="space-y-1">
+                         <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Confidence</p>
+                         <span className="text-sm font-bold tabular-nums text-foreground">{Math.round(confidence)}%</span>
+                      </div>
+                   </div>
 
                   <AnimatePresence mode="wait">
                     {isScanning ? (
@@ -81,7 +81,7 @@ export default function ScanPage() {
                           initial={{ opacity: 0, x: 20 }}
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: -20 }}
-                          className="flex items-center gap-3 px-6 py-2 rounded-2xl bg-white/5"
+                          className="flex items-center gap-3 px-6 py-2 rounded-2xl bg-foreground/5"
                        >
                           <div className="h-2 w-2 rounded-full bg-primary animate-ping" />
                           <span className="text-xs font-black uppercase tracking-widest text-primary">Analyzing...</span>
@@ -97,7 +97,7 @@ export default function ScanPage() {
                           <span className="text-xs font-black uppercase tracking-widest">{scanResult} Detected</span>
                        </motion.div>
                     ) : (
-                       <div className="px-6 py-2 rounded-2xl bg-white/5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                       <div className="px-6 py-2 rounded-2xl bg-foreground/5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Awaiting Stream
                        </div>
                     )}

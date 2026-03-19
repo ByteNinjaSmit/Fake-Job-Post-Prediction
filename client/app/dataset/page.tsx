@@ -32,29 +32,29 @@ const pieData = [
 export default function DatasetExplorer() {
   return (
     <div className="max-w-[1600px] mx-auto space-y-16 pb-20 px-4">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/5 pb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border pb-10">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="p-2 bg-primary/10 rounded-lg">
                 <Database className="h-5 w-5 text-primary" />
              </div>
-             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">System Path: /root/intelligence/dataset</span>
+             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">System Path: /root/intelligence/dataset</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-black font-outfit text-white leading-tight">
+          <h1 className="text-5xl md:text-6xl font-black font-outfit text-foreground leading-tight">
              Corpus <span className="text-gradient italic">Explorer</span>
           </h1>
-          <p className="text-zinc-400 text-lg font-medium max-w-2xl leading-relaxed">
+          <p className="text-muted-foreground text-lg font-medium max-w-2xl leading-relaxed">
              Deep-dive into the EMSCAD global threat repository and linguistic distribution statistics.
           </p>
         </div>
-        <div className="flex items-center gap-4 px-6 py-3 glass-panel rounded-2xl border-white/10">
+        <div className="flex items-center gap-4 px-6 py-3 glass-panel rounded-2xl border-border">
             <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300">Archive: EMSCAD-G</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Archive: EMSCAD-G</span>
         </div>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-3">
-         <Card className="glass-card border-none rounded-3xl p-8 bg-white/[0.01]">
+         <Card className="glass-card border-none rounded-3xl p-8 bg-foreground/[0.01]">
             <CardHeader className="p-0 mb-8">
                <CardTitle className="text-xl font-bold font-outfit">Class Distribution</CardTitle>
                <CardDescription>Overall label distribution in training set.</CardDescription>
@@ -76,8 +76,8 @@ export default function DatasetExplorer() {
                       ))}
                     </Pie>
                     <Tooltip 
-                      contentStyle={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                      itemStyle={{ color: '#fff' }}
+                      contentStyle={{ backgroundColor: 'var(--popover)', border: '1px solid var(--border)', borderRadius: '12px' }}
+                      itemStyle={{ color: 'var(--foreground)' }}
                     />
                   </RePieChart>
                </ResponsiveContainer>
@@ -95,7 +95,7 @@ export default function DatasetExplorer() {
             </CardContent>
          </Card>
 
-         <Card className="lg:col-span-2 glass-card border-none rounded-3xl p-8 bg-white/[0.01]">
+         <Card className="lg:col-span-2 glass-card border-none rounded-3xl p-8 bg-foreground/[0.01]">
             <CardHeader className="p-0 mb-8">
                <CardTitle className="text-xl font-bold font-outfit">Department Analysis</CardTitle>
                <CardDescription>Correlation between job sectors and fraud density.</CardDescription>
@@ -134,8 +134,8 @@ export default function DatasetExplorer() {
            { icon: PieChart, label: 'Imbalance Ratio', value: '1:11', trend: 'Corrected' },
            { icon: TableIcon, label: 'Fields/Entry', value: '14', trend: 'Full' },
          ].map((stat, i) => (
-           <Card key={i} className="glass-card border-none p-6 rounded-2xl bg-white/[0.01] hover:bg-white/[0.03] transition-all group">
-              <div className="p-2 bg-white/5 rounded-xl text-primary w-fit mb-4 group-hover:scale-110 transition-transform">
+           <Card key={i} className="glass-card border-none p-6 rounded-2xl bg-foreground/[0.01] hover:bg-foreground/[0.03] transition-all group">
+              <div className="p-2 bg-foreground/5 rounded-xl text-primary w-fit mb-4 group-hover:scale-110 transition-transform">
                  <stat.icon className="h-4 w-4" />
               </div>
               <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">{stat.label}</p>

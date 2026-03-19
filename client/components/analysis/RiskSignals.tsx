@@ -26,7 +26,7 @@ export function RiskSignals() {
            <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_var(--primary)] animate-pulse" />
            <h3 className="text-sm font-black uppercase tracking-[0.2em] text-foreground/70">Risk Signals</h3>
         </div>
-        <Badge variant="outline" className="border-white/10 rounded-full px-3 text-[10px] font-bold">
+        <Badge variant="outline" className="border-border rounded-full px-3 text-[10px] font-bold">
           {signals.length} Flags Identified
         </Badge>
       </div>
@@ -37,7 +37,7 @@ export function RiskSignals() {
             <motion.div 
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
-               className="h-full flex flex-col items-center justify-center p-8 text-center glass-card border-none rounded-2xl bg-white/[0.01]"
+               className="h-full flex flex-col items-center justify-center p-8 text-center glass-card border-none rounded-2xl bg-foreground/[0.01]"
             >
                <ShieldCheck className="h-10 w-10 text-green-500/20 mb-4" />
                <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest italic opacity-40">No localized anomalies detected</p>
@@ -50,7 +50,7 @@ export function RiskSignals() {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: -20, opacity: 0 }}
                 transition={{ delay: idx * 0.05 }}
-                className="p-4 glass-card border-none rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] transition-colors relative group"
+                className="p-4 glass-card border-none rounded-2xl bg-foreground/[0.02] hover:bg-foreground/[0.05] transition-colors relative group"
               >
                 <div className={`absolute top-0 left-0 w-1 h-full rounded-full ${getRiskColor(signal.risk).replace('text', 'bg')}`} />
                 <div className="flex items-start justify-between mb-2">
@@ -71,7 +71,7 @@ export function RiskSignals() {
       </div>
 
       <div className={`p-6 rounded-3xl transition-all duration-500 overflow-hidden relative group ${highRiskCount > 0 ? 'bg-destructive/10 border border-destructive/20' : 'bg-primary/10 border border-primary/20'}`}>
-         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-[40px] -mr-16 -mt-16" />
+         <div className="absolute top-0 right-0 w-32 h-32 bg-foreground/5 rounded-full blur-[40px] -mr-16 -mt-16" />
          <div className="relative z-10 flex items-center justify-between">
             <div className="space-y-1">
                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Threat Status</p>

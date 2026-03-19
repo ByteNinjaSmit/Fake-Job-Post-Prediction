@@ -84,7 +84,7 @@ export default function PredictionForm({ onPredict, isLoading }: PredictionFormP
                     placeholder="e.g. Software Engineer" 
                     {...register("title")} 
                     aria-invalid={!!errors.title}
-                    className="rounded-xl border-white/10 bg-white/5 pl-9 h-11 focus-visible:ring-primary/50"
+                    className="rounded-xl border-border bg-foreground/5 pl-9 h-11 focus-visible:ring-primary/50"
                   />
                   <Building2 className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
                 </div>
@@ -101,7 +101,7 @@ export default function PredictionForm({ onPredict, isLoading }: PredictionFormP
                       placeholder="e.g. New York, NY" 
                       {...register("location")} 
                       aria-invalid={!!errors.location}
-                      className="rounded-xl border-white/10 bg-white/5 pl-9 h-11 focus-visible:ring-primary/50"
+                      className="rounded-xl border-border bg-foreground/5 pl-9 h-11 focus-visible:ring-primary/50"
                     />
                     <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
                  </div>
@@ -116,7 +116,7 @@ export default function PredictionForm({ onPredict, isLoading }: PredictionFormP
               <Textarea 
                 id="description"
                 placeholder="Paste the full job description here..." 
-                className="min-h-[200px] rounded-2xl border-white/10 bg-white/5 focus-visible:ring-primary/50 p-4 leading-relaxed"
+                className="min-h-[200px] rounded-2xl border-border bg-foreground/5 focus-visible:ring-primary/50 p-4 leading-relaxed"
                 {...register("description")} 
                 aria-invalid={!!errors.description}
               />
@@ -127,7 +127,7 @@ export default function PredictionForm({ onPredict, isLoading }: PredictionFormP
             <FieldError errors={[errors.description]} />
           </Field>
 
-          <Button type="submit" className="w-full h-12 rounded-2xl premium-gradient font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all" disabled={isLoading}>
+          <Button type="submit" className="w-full h-12 rounded-2xl premium-gradient font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all text-white" disabled={isLoading}>
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />

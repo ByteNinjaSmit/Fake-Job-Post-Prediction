@@ -50,11 +50,11 @@ export function LiveInputPanel({ onAnalyze }: { onAnalyze: () => void }) {
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Enter job description, organizational requirements, or role benefits..."
           disabled={isAnalyzing}
-          className="w-full h-[400px] glass-card rounded-3xl p-8 text-base leading-relaxed bg-white/[0.02] border-white/5 focus:bg-white/[0.04] focus:border-primary/20 focus:ring-1 focus:ring-primary/20 outline-none transition-all scrollbar-hide resize-none font-medium placeholder:text-muted-foreground/30"
+          className="w-full h-[400px] glass-card rounded-3xl p-8 text-base leading-relaxed bg-foreground/[0.02] border-border focus:bg-white/[0.04] focus:border-primary/20 focus:ring-1 focus:ring-primary/20 outline-none transition-all scrollbar-hide resize-none font-medium placeholder:text-muted-foreground/30"
         />
         
         <div className="absolute bottom-6 right-6 flex items-center gap-4">
-           <div className="px-3 py-1.5 rounded-full bg-white/5 border border-white/5 text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+           <div className="px-3 py-1.5 rounded-full bg-foreground/5 border border-border text-[10px] font-black tracking-widest text-muted-foreground uppercase">
               {inputText.split(/\s+/).filter(Boolean).length} Words Detectable
            </div>
            
@@ -66,7 +66,7 @@ export function LiveInputPanel({ onAnalyze }: { onAnalyze: () => void }) {
               >
                 {isAnalyzing ? (
                    <span className="flex items-center gap-2">
-                     <span className="h-4 w-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                     <span className="h-4 w-4 border-2 border-foreground/20 border-t-white rounded-full animate-spin" />
                      Processing...
                    </span>
                 ) : (

@@ -17,7 +17,7 @@ export function AIThinkingFeed() {
 
   return (
     <div className="flex flex-col h-full glass-card border-none rounded-3xl overflow-hidden shadow-2xl">
-      <div className="flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/5">
+      <div className="flex items-center justify-between px-6 py-4 bg-foreground/5 border-b border-border">
         <div className="flex items-center gap-2">
           <Terminal className="h-4 w-4 text-primary" />
           <span className="text-xs font-black uppercase tracking-widest text-foreground/80">Neural Process Log</span>
@@ -69,10 +69,10 @@ export function AIThinkingFeed() {
         </AnimatePresence>
       </div>
 
-      <div className="p-4 bg-primary/5 border-t border-white/5 flex items-center justify-between">
+      <div className="p-4 bg-primary/5 border-t border-border flex items-center justify-between">
         <div className="flex gap-1.5">
           {[1, 2, 3].map(i => (
-            <div key={i} className={`h-1 w-8 rounded-full ${isAnalyzing ? 'bg-primary animate-pulse' : 'bg-white/10'}`} />
+            <div key={i} className={`h-1 w-8 rounded-full ${isAnalyzing ? 'bg-primary animate-pulse' : 'bg-foreground/10'}`} />
           ))}
         </div>
         <Zap className={`h-3 w-3 ${isAnalyzing ? 'text-primary fill-primary animate-bounce' : 'text-muted-foreground'}`} />

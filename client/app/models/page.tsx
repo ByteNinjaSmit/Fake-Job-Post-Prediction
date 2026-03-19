@@ -116,7 +116,7 @@ export default function ModelsPage() {
       </div>
 
       <Card className="glass-card border-none shadow-2xl overflow-hidden">
-        <CardHeader className="p-8 border-b border-white/5 bg-white/5">
+        <CardHeader className="p-8 border-b border-border bg-foreground/5">
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-2xl font-bold font-outfit">Validation Analytics (EMSCAD)</CardTitle>
@@ -127,8 +127,8 @@ export default function ModelsPage() {
         </CardHeader>
         <CardContent className="p-0">
           <Table>
-            <TableHeader className="bg-white/5">
-              <TableRow className="hover:bg-transparent border-white/5">
+            <TableHeader className="bg-foreground/5">
+              <TableRow className="hover:bg-transparent border-border">
                 <TableHead className="w-[300px] pl-8 font-bold text-foreground/70 tracking-widest uppercase text-[10px]">Model Architecture</TableHead>
                 <TableHead className="font-bold text-foreground/70 tracking-widest uppercase text-[10px]">Accuracy</TableHead>
                 <TableHead className="font-bold text-foreground/70 tracking-widest uppercase text-[10px]">Precision</TableHead>
@@ -139,7 +139,7 @@ export default function ModelsPage() {
             </TableHeader>
             <TableBody>
               {modelData.map((model, idx) => (
-                <TableRow key={model.name} className="border-white/5 group hover:bg-white/5 transition-colors">
+                <TableRow key={model.name} className="border-border group hover:bg-foreground/5 transition-colors">
                   <TableCell className="font-bold pl-8 py-5 text-base font-outfit group-hover:text-primary transition-colors">{model.name}</TableCell>
                   <TableCell className="font-mono text-sm">{(model.accuracy * 100).toFixed(1)}%</TableCell>
                   <TableCell className="font-mono text-sm">{(model.precision * 100).toFixed(1)}%</TableCell>
